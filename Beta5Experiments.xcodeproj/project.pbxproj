@@ -14,6 +14,8 @@
 		7973052522F1D58600F85B1F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7973052422F1D58600F85B1F /* Preview Assets.xcassets */; };
 		7973052822F1D58600F85B1F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7973052622F1D58600F85B1F /* LaunchScreen.storyboard */; };
 		7973053322F1D58600F85B1F /* Beta5ExperimentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973053222F1D58600F85B1F /* Beta5ExperimentsTests.swift */; };
+		79FB664822F2F1D900B43568 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664722F2F1D900B43568 /* App.swift */; };
+		79FB664A22F2F2DE00B43568 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664922F2F2DE00B43568 /* StoreView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +40,8 @@
 		7973052E22F1D58600F85B1F /* Beta5ExperimentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Beta5ExperimentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7973053222F1D58600F85B1F /* Beta5ExperimentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beta5ExperimentsTests.swift; sourceTree = "<group>"; };
 		7973053422F1D58600F85B1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		79FB664722F2F1D900B43568 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		79FB664922F2F2DE00B43568 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,10 +86,12 @@
 				7973051B22F1D58400F85B1F /* AppDelegate.swift */,
 				7973051D22F1D58400F85B1F /* SceneDelegate.swift */,
 				7973051F22F1D58400F85B1F /* ContentView.swift */,
+				79FB664722F2F1D900B43568 /* App.swift */,
 				7973052122F1D58600F85B1F /* Assets.xcassets */,
 				7973052622F1D58600F85B1F /* LaunchScreen.storyboard */,
 				7973052922F1D58600F85B1F /* Info.plist */,
 				7973052322F1D58600F85B1F /* Preview Content */,
+				79FB664922F2F2DE00B43568 /* StoreView.swift */,
 			);
 			path = Beta5Experiments;
 			sourceTree = "<group>";
@@ -209,7 +215,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				7973051C22F1D58400F85B1F /* AppDelegate.swift in Sources */,
+				79FB664822F2F1D900B43568 /* App.swift in Sources */,
 				7973051E22F1D58400F85B1F /* SceneDelegate.swift in Sources */,
+				79FB664A22F2F2DE00B43568 /* StoreView.swift in Sources */,
 				7973052022F1D58400F85B1F /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
