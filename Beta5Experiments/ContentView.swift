@@ -10,15 +10,15 @@ import SwiftUI
 import Combine
 
 struct ContentView: StoreView {
-    let store: Store<AppState, AppState.Action>
+    var store: Store<AppState, AppState.Action>
     
     var body: some View {
         VStack {
             Text("Hello World")
-            Text(verbatim: "\(self.foo)")
-            Toggle(isOn: self.foo { _ in .none }) {
-                EmptyView()
-            }
+            Text(verbatim: "\(self.dateText)")
+//            Toggle(isOn: self.foo { _ in .none }) {
+//                EmptyView()
+//            }
             Button(action: {
                 self.onTick(Date())
             }) {

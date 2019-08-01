@@ -3,7 +3,7 @@ import SwiftUI
 @dynamicMemberLookup protocol StoreView: View {
     associatedtype State
     associatedtype Action
-    var store: Store<State, Action> { get }
+    var store: Store<State, Action> { get set }
 }
 
 extension StoreView {

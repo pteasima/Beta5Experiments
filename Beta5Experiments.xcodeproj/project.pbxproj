@@ -16,6 +16,9 @@
 		7973053322F1D58600F85B1F /* Beta5ExperimentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973053222F1D58600F85B1F /* Beta5ExperimentsTests.swift */; };
 		79FB664822F2F1D900B43568 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664722F2F1D900B43568 /* App.swift */; };
 		79FB664A22F2F2DE00B43568 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664922F2F2DE00B43568 /* StoreView.swift */; };
+		79FB664C22F310A600B43568 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664B22F310A600B43568 /* Store.swift */; };
+		79FB664E22F3127E00B43568 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664D22F3127E00B43568 /* Effect.swift */; };
+		79FB665022F3138500B43568 /* SubscriptionEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664F22F3138500B43568 /* SubscriptionEffect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +45,9 @@
 		7973053422F1D58600F85B1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79FB664722F2F1D900B43568 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		79FB664922F2F2DE00B43568 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
+		79FB664B22F310A600B43568 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
+		79FB664D22F3127E00B43568 /* Effect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
+		79FB664F22F3138500B43568 /* SubscriptionEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionEffect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,11 +93,14 @@
 				7973051D22F1D58400F85B1F /* SceneDelegate.swift */,
 				7973051F22F1D58400F85B1F /* ContentView.swift */,
 				79FB664722F2F1D900B43568 /* App.swift */,
+				79FB664B22F310A600B43568 /* Store.swift */,
+				79FB664D22F3127E00B43568 /* Effect.swift */,
+				79FB664F22F3138500B43568 /* SubscriptionEffect.swift */,
+				79FB664922F2F2DE00B43568 /* StoreView.swift */,
 				7973052122F1D58600F85B1F /* Assets.xcassets */,
 				7973052622F1D58600F85B1F /* LaunchScreen.storyboard */,
 				7973052922F1D58600F85B1F /* Info.plist */,
 				7973052322F1D58600F85B1F /* Preview Content */,
-				79FB664922F2F2DE00B43568 /* StoreView.swift */,
 			);
 			path = Beta5Experiments;
 			sourceTree = "<group>";
@@ -215,8 +224,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				7973051C22F1D58400F85B1F /* AppDelegate.swift in Sources */,
+				79FB664E22F3127E00B43568 /* Effect.swift in Sources */,
 				79FB664822F2F1D900B43568 /* App.swift in Sources */,
 				7973051E22F1D58400F85B1F /* SceneDelegate.swift in Sources */,
+				79FB664C22F310A600B43568 /* Store.swift in Sources */,
+				79FB665022F3138500B43568 /* SubscriptionEffect.swift in Sources */,
 				79FB664A22F2F2DE00B43568 /* StoreView.swift in Sources */,
 				7973052022F1D58400F85B1F /* ContentView.swift in Sources */,
 			);
