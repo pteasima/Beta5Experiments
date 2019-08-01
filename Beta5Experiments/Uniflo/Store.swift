@@ -40,23 +40,6 @@ final class StateObject<State>: ObservableObject {
     @ObservedObject private var stateObject: StateObject<State>
     let dispatch: (Action) -> ()
     
-    private var strongReferences: [Any] = [] //used to retain Cancellables and Application, no need to track type of either
-    
-    //this generic version segfaults at callsite, we need to typeErase for now
-    //    private init<P: Publisher>(initialState: State, dispatch: @escaping (Action) -> Void, willChange: P) where P.Output == State, P.Failure == Never { }
-    
-    private init(initialState: State, dispatch: @escaping (Action) -> Void, willChange: AnyPublisher<State, Never>) {
-        stateObject = StateObject(state: initialState)
-        self.dispatch = dispatch
-        strongReferences.append(willChange
-            .breakpoint(receiveOutput: {
-                print($0)
-                return false
-            })
-            .assign(to: \.state, on: stateObject)
-        )
-    }
-    
     static func application<Environment>(environment: Environment, initialState: State, initialEffects: [Effect<Action, Environment>] = [], reduce: @escaping (inout State, Action) -> [Effect<Action, Environment>] = {_,_ in []}, subscriptions: @escaping (State) -> [SubscriptionEffect<Action, Environment>] = { _ in [] }) -> Store {
         
         let program = ElmProgram<State, Action, Environment>(initialState: initialState, initialEffects: initialEffects, update: reduce, subscriptions: subscriptions, effects: environment)
@@ -64,12 +47,6 @@ final class StateObject<State>: ObservableObject {
         store.strongReferences.append(program)
         
         return store
-    }
-    
-    static func just(_ state: State) -> Store {
-        self.init(initialState: state, dispatch: {
-            print($0)
-        }, willChange: Empty(completeImmediately: true).eraseToAnyPublisher())
     }
     
     subscript<Subject>(dynamicMember keyPath: KeyPath<State, Subject>) -> Subject {
@@ -92,6 +69,26 @@ final class StateObject<State>: ObservableObject {
                 action[keyPath: keyPath] = $0
                 self.dispatch(action)
             }
+    }
+    
+    //...
+    
+    private var strongReferences: [Any] = [] //used to retain Cancellables and Application, no need to track type of either
+    
+    //this generic version segfaults at callsite, we need to typeErase for now
+    //    private init<P: Publisher>(initialState: State, dispatch: @escaping (Action) -> Void, willChange: P) where P.Output == State, P.Failure == Never { }
+    
+    private init(initialState: State, dispatch: @escaping (Action) -> Void, willChange: AnyPublisher<State, Never>) {
+        stateObject = StateObject(state: initialState)
+        self.dispatch = dispatch
+        strongReferences.append(willChange.assign(to: \.state, on: stateObject)
+        )
+    }
+    
+    static func just(_ state: State) -> Store {
+        self.init(initialState: state, dispatch: {
+            print($0)
+        }, willChange: Empty(completeImmediately: true).eraseToAnyPublisher())
     }
 }
 extension Store where State: Application, State.Action == Action {

@@ -16,13 +16,13 @@ struct ContentView: StoreView {
         VStack {
             Text("Hello World")
             Text(verbatim: "\(self.dateText)")
-//            Toggle(isOn: self.foo { _ in .none }) {
-//                EmptyView()
-//            }
+            Toggle(isOn: self.isToggleOn { .toggle($0) }) {
+                EmptyView()
+            }
             Button(action: {
                 self.onTick(Date())
             }) {
-                Text("toggle")
+                Text("Refresh Date")
             }
         }
     }

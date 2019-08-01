@@ -1,11 +1,13 @@
 import Foundation
 
 struct AppState {
+    var isToggleOn: Bool = true
     var dateText: String = ""
 }
 extension AppState: Application {
     enum Action {
         case none
+        case toggle(Bool)
         case onTick(Date)
         
         var none: Void? {
@@ -16,6 +18,17 @@ extension AppState: Application {
             set {
                 guard let _ = newValue else { return }
                 self = .none
+            }
+        }
+        
+        var toggle: Bool? {
+            get {
+                guard case let .toggle(value) = self else { return nil }
+                return value
+            }
+            set {
+                guard let newValue = newValue else { return }
+                self = .toggle(newValue)
             }
         }
         
@@ -32,9 +45,11 @@ extension AppState: Application {
     }
     
     mutating func reduce(_ action: AppState.Action) -> [Effect<AppState.Action, Unit>] {
-        print("reduce", action)
         switch action {
         case .none:
+            return []
+        case let .toggle(to):
+            isToggleOn = to
             return []
         case let .onTick(date):
             dateText = String(describing: date)
