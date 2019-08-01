@@ -1,7 +1,6 @@
 import SwiftUI
 import Combine
 
-struct Environment {}
 struct Unit: EmptyInitializable { }
 
 protocol Application {

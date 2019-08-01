@@ -9,21 +9,21 @@
 import SwiftUI
 import Combine
 
-struct ContentView: StoreView {
+struct ContentView: /*Store*/View {
     var store: Store<AppState, AppState.Action>
     
     var body: some View {
         VStack {
             Text("Hello World")
-            Text(verbatim: "\(self.dateText)")
-            Toggle(isOn: self.isToggleOn { .toggle($0) }) {
-                EmptyView()
-            }
-            Button(action: {
-                self.onTick(Date())
-            }) {
-                Text("Refresh Date")
-            }
+//            Text(verbatim: "\(self.dateText)")
+//            Toggle(isOn: self.isToggleOn { .toggle($0) }) {
+//                EmptyView()
+//            }
+//            Button(action: {
+//                self.onTick(Date())
+//            }) {
+//                Text("Refresh Date")
+//            }
         }
     }
 }

@@ -15,6 +15,11 @@
 		792D209222F358CA0033C6BB /* IdentifyableTagged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D208B22F358C90033C6BB /* IdentifyableTagged.swift */; };
 		792D209322F358CA0033C6BB /* ListWithSingleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D208C22F358CA0033C6BB /* ListWithSingleSelection.swift */; };
 		792D209622F359690033C6BB /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = 792D209522F359690033C6BB /* Tagged */; };
+		792D209922F359F90033C6BB /* Github.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D209822F359F90033C6BB /* Github.swift */; };
+		792D209B22F35A040033C6BB /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D209A22F35A040033C6BB /* Environment.swift */; };
+		792D209D22F35B370033C6BB /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D209C22F35B370033C6BB /* Clock.swift */; };
+		792D20A122F35C420033C6BB /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D209F22F35C410033C6BB /* Model.swift */; };
+		792D20A522F35CC40033C6BB /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D20A422F35CC40033C6BB /* Update.swift */; };
 		7973051C22F1D58400F85B1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973051B22F1D58400F85B1F /* AppDelegate.swift */; };
 		7973051E22F1D58400F85B1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973051D22F1D58400F85B1F /* SceneDelegate.swift */; };
 		7973052022F1D58400F85B1F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973051F22F1D58400F85B1F /* ContentView.swift */; };
@@ -47,6 +52,11 @@
 		792D208A22F358C90033C6BB /* Lookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lookup.swift; sourceTree = "<group>"; };
 		792D208B22F358C90033C6BB /* IdentifyableTagged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyableTagged.swift; sourceTree = "<group>"; };
 		792D208C22F358CA0033C6BB /* ListWithSingleSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListWithSingleSelection.swift; sourceTree = "<group>"; };
+		792D209822F359F90033C6BB /* Github.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Github.swift; sourceTree = "<group>"; };
+		792D209A22F35A040033C6BB /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
+		792D209C22F35B370033C6BB /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		792D209F22F35C410033C6BB /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		792D20A422F35CC40033C6BB /* Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Update.swift; sourceTree = "<group>"; };
 		7973051822F1D58400F85B1F /* Beta5Experiments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beta5Experiments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7973051B22F1D58400F85B1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7973051D22F1D58400F85B1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -98,6 +108,33 @@
 			path = Prelude;
 			sourceTree = "<group>";
 		};
+		792D209722F359E40033C6BB /* Environment */ = {
+			isa = PBXGroup;
+			children = (
+				792D209A22F35A040033C6BB /* Environment.swift */,
+				792D209822F359F90033C6BB /* Github.swift */,
+				792D209C22F35B370033C6BB /* Clock.swift */,
+			);
+			path = Environment;
+			sourceTree = "<group>";
+		};
+		792D209E22F35C410033C6BB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				792D209F22F35C410033C6BB /* Model.swift */,
+				792D20A322F35CB30033C6BB /* Update */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		792D20A322F35CB30033C6BB /* Update */ = {
+			isa = PBXGroup;
+			children = (
+				792D20A422F35CC40033C6BB /* Update.swift */,
+			);
+			path = Update;
+			sourceTree = "<group>";
+		};
 		7973050F22F1D58400F85B1F = {
 			isa = PBXGroup;
 			children = (
@@ -121,6 +158,8 @@
 			children = (
 				792D208522F358A90033C6BB /* Prelude */,
 				7990495522F320240067BF43 /* Uniflo */,
+				792D209722F359E40033C6BB /* Environment */,
+				792D209E22F35C410033C6BB /* Model */,
 				7973051B22F1D58400F85B1F /* AppDelegate.swift */,
 				7973051D22F1D58400F85B1F /* SceneDelegate.swift */,
 				7973051F22F1D58400F85B1F /* ContentView.swift */,
@@ -270,6 +309,7 @@
 			files = (
 				792D209322F358CA0033C6BB /* ListWithSingleSelection.swift in Sources */,
 				7973051C22F1D58400F85B1F /* AppDelegate.swift in Sources */,
+				792D20A522F35CC40033C6BB /* Update.swift in Sources */,
 				792D209022F358CA0033C6BB /* RemoteData.swift in Sources */,
 				792D208E22F358CA0033C6BB /* ScriptView.swift in Sources */,
 				792D209122F358CA0033C6BB /* Lookup.swift in Sources */,
@@ -278,11 +318,15 @@
 				7973051E22F1D58400F85B1F /* SceneDelegate.swift in Sources */,
 				792D209222F358CA0033C6BB /* IdentifyableTagged.swift in Sources */,
 				792D208D22F358CA0033C6BB /* Collection+Modify.swift in Sources */,
+				792D209922F359F90033C6BB /* Github.swift in Sources */,
 				79FB664C22F310A600B43568 /* Store.swift in Sources */,
+				792D209D22F35B370033C6BB /* Clock.swift in Sources */,
 				79FB665022F3138500B43568 /* SubscriptionEffect.swift in Sources */,
 				79FB664A22F2F2DE00B43568 /* StoreView.swift in Sources */,
 				792D208F22F358CA0033C6BB /* FoundationExtensions.swift in Sources */,
+				792D20A122F35C420033C6BB /* Model.swift in Sources */,
 				7973052022F1D58400F85B1F /* ContentView.swift in Sources */,
+				792D209B22F35A040033C6BB /* Environment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
