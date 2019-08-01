@@ -9,6 +9,32 @@
 import SwiftUI
 import Combine
 
+struct Environment {}
+struct Unit: EmptyInitializable { }
+
+protocol Application {
+    associatedtype Action = Never
+    associatedtype Environment = Unit
+    var environment: Environment { get }
+    var initialEffects: [Effect<Action, Environment>] { get }
+    mutating func reduce(_ action: Action) -> [Effect<Action, Environment>]
+    func subscriptions() -> [SubscriptionEffect<Action, Environment>]
+}
+extension Application {
+    var initialEffects: [Effect<AppState.Action, Environment>] {
+       []
+    }
+    func reduce(_ action: AppState.Action) -> [Effect<AppState.Action, Environment>] {
+        print("using default reduce implementation for application \(self), action: \(action)")
+        return []
+    }
+    func subscriptions() -> [SubscriptionEffect<AppState.Action, Environment>] {
+        []
+    }
+}
+extension Application where Environment: EmptyInitializable {
+    var environment: Environment { .init() }
+}
 protocol EmptyInitializable {
     init()
 }
@@ -35,7 +61,7 @@ extension StoreView {
     }
 }
 
-struct Effect<Action, Environments> {
+struct Effect<Action, Environment> {
     
 }
 struct SubscriptionEffect<Action, Environment>: Equatable {
@@ -62,9 +88,10 @@ final class StateObject<State>: ObservableObject {
         strongReferences.append(willChange.assign(to: \.state, on: stateObject))
     }
     
-    static func application<Environment>(environment: Environment, initial: (state: State, effects: [Effect<Action, Environment>]), reduce: @escaping (inout State) -> [Effect<Action, Environment>], subscriptions: (State) -> [SubscriptionEffect<Action, Environment>]) -> Store {
+    static func application<Environment>(environment: Environment, initialState: State, initialEffects: [Effect<Action, Environment>] = [], reduce: @escaping (inout State, Action) -> [Effect<Action, Environment>] = {_,_ in []}, subscriptions: (State) -> [SubscriptionEffect<Action, Environment>] = { _ in [] }) -> Store {
         //TODO: use Program internally (rename to Application)
-        Store.just(initial.0)
+//        fatalError()
+        Store.just(initialState)
     }
     
     static func just(_ state: State) -> Store {
@@ -95,43 +122,49 @@ final class StateObject<State>: ObservableObject {
             }
     }
 }
+extension Store where State: Application, State.Action == Action {
+    static func application(_ initialState: State) -> Store {
+        self.application(environment: initialState.environment, initialState: initialState, initialEffects: initialState.initialEffects, reduce: { $0.reduce($1) }, subscriptions: { $0.subscriptions() })
+    }
+}
 
 struct AppState {
     var foo: Bool = true
 }
-
-enum Action {
-    case none
-    case onTick(Date)
-
-    var none: Void? {
-        get {
-            guard case .none = self else { return nil }
-            return ()
+extension AppState: Application {
+    enum Action {
+        case none
+        case onTick(Date)
+        
+        var none: Void? {
+            get {
+                guard case .none = self else { return nil }
+                return ()
+            }
+            set {
+                guard let _ = newValue else { return }
+                self = .none
+            }
         }
-        set {
-            guard let _ = newValue else { return }
-            self = .none
-        }
-    }
-
-    var onTick: Date? {
-        get {
-            guard case let .onTick(value) = self else { return nil }
-            return value
-        }
-        set {
-            guard let newValue = newValue else { return }
-            self = .onTick(newValue)
+        
+        var onTick: Date? {
+            get {
+                guard case let .onTick(value) = self else { return nil }
+                return value
+            }
+            set {
+                guard let newValue = newValue else { return }
+                self = .onTick(newValue)
+            }
         }
     }
 }
-extension Action: EmptyInitializable {
+extension AppState.Action: EmptyInitializable {
     init() { self = .none }
 }
 
 struct ContentView: StoreView {
-    let store: Store<AppState, Action>
+    let store: Store<AppState, AppState.Action>
     
     var body: some View {
         VStack {
@@ -142,7 +175,7 @@ struct ContentView: StoreView {
             }
             Button(action: {
                 self.onTick(Date())
-                }) {
+            }) {
                 Text("toggle")
             }
         }
@@ -152,7 +185,13 @@ struct ContentView: StoreView {
 #if DEBUG
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(store: .just(AppState()))
+        ContentView(store: .application(AppState()))
     }
 }
 #endif
+
+
+
+var appState = AppState()
+let s = Store<AppState, AppState.Action>.application(environment: appState.environment, initialState: appState, initialEffects: [])
+
