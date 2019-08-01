@@ -2,7 +2,8 @@ import Foundation
 import Combine
 
 extension AppState: Application {
-//    typealias Environment = Beta5Experiments.Environment
+    var environment: Environment { .init() }
+
     enum Action {
         case none
         case gistListAppear
@@ -79,7 +80,11 @@ extension AppState: Application {
         }
     }
     
-    var environment: Environment { .init() }
+    func subscriptions() -> [SubscriptionEffect<Action, Environment>] {
+        [
+            .init(\.clock.repeatedTimer, 5.0, \.noAction)
+        ]
+    }
 
 }
 
@@ -87,9 +92,4 @@ extension AppState: Application {
 extension Date {
     var noAction: AppState.Action { return .none }
 }
-//func subscriptions(for model: Model) -> [Sub<Msg, Effects>] {
-//    [
-////        Sub(\.clock.repeatedTimer, 5.0, \.noMsg)
-//    ]
-//}
 
