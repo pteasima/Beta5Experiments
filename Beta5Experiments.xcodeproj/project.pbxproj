@@ -3,10 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		792D208D22F358CA0033C6BB /* Collection+Modify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D208622F358C90033C6BB /* Collection+Modify.swift */; };
+		792D208E22F358CA0033C6BB /* ScriptView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D208722F358C90033C6BB /* ScriptView.swift */; };
+		792D208F22F358CA0033C6BB /* FoundationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D208822F358C90033C6BB /* FoundationExtensions.swift */; };
+		792D209022F358CA0033C6BB /* RemoteData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D208922F358C90033C6BB /* RemoteData.swift */; };
+		792D209122F358CA0033C6BB /* Lookup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D208A22F358C90033C6BB /* Lookup.swift */; };
+		792D209222F358CA0033C6BB /* IdentifyableTagged.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D208B22F358C90033C6BB /* IdentifyableTagged.swift */; };
+		792D209322F358CA0033C6BB /* ListWithSingleSelection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D208C22F358CA0033C6BB /* ListWithSingleSelection.swift */; };
+		792D209622F359690033C6BB /* Tagged in Frameworks */ = {isa = PBXBuildFile; productRef = 792D209522F359690033C6BB /* Tagged */; };
 		7973051C22F1D58400F85B1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973051B22F1D58400F85B1F /* AppDelegate.swift */; };
 		7973051E22F1D58400F85B1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973051D22F1D58400F85B1F /* SceneDelegate.swift */; };
 		7973052022F1D58400F85B1F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973051F22F1D58400F85B1F /* ContentView.swift */; };
@@ -32,6 +40,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		792D208622F358C90033C6BB /* Collection+Modify.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Collection+Modify.swift"; sourceTree = "<group>"; };
+		792D208722F358C90033C6BB /* ScriptView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScriptView.swift; sourceTree = "<group>"; };
+		792D208822F358C90033C6BB /* FoundationExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FoundationExtensions.swift; sourceTree = "<group>"; };
+		792D208922F358C90033C6BB /* RemoteData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RemoteData.swift; sourceTree = "<group>"; };
+		792D208A22F358C90033C6BB /* Lookup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Lookup.swift; sourceTree = "<group>"; };
+		792D208B22F358C90033C6BB /* IdentifyableTagged.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentifyableTagged.swift; sourceTree = "<group>"; };
+		792D208C22F358CA0033C6BB /* ListWithSingleSelection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListWithSingleSelection.swift; sourceTree = "<group>"; };
 		7973051822F1D58400F85B1F /* Beta5Experiments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beta5Experiments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7973051B22F1D58400F85B1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7973051D22F1D58400F85B1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,6 +70,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				792D209622F359690033C6BB /* Tagged in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +84,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		792D208522F358A90033C6BB /* Prelude */ = {
+			isa = PBXGroup;
+			children = (
+				792D208622F358C90033C6BB /* Collection+Modify.swift */,
+				792D208822F358C90033C6BB /* FoundationExtensions.swift */,
+				792D208B22F358C90033C6BB /* IdentifyableTagged.swift */,
+				792D208C22F358CA0033C6BB /* ListWithSingleSelection.swift */,
+				792D208A22F358C90033C6BB /* Lookup.swift */,
+				792D208922F358C90033C6BB /* RemoteData.swift */,
+				792D208722F358C90033C6BB /* ScriptView.swift */,
+			);
+			path = Prelude;
+			sourceTree = "<group>";
+		};
 		7973050F22F1D58400F85B1F = {
 			isa = PBXGroup;
 			children = (
@@ -89,6 +119,7 @@
 		7973051A22F1D58400F85B1F /* Beta5Experiments */ = {
 			isa = PBXGroup;
 			children = (
+				792D208522F358A90033C6BB /* Prelude */,
 				7990495522F320240067BF43 /* Uniflo */,
 				7973051B22F1D58400F85B1F /* AppDelegate.swift */,
 				7973051D22F1D58400F85B1F /* SceneDelegate.swift */,
@@ -146,6 +177,9 @@
 			dependencies = (
 			);
 			name = Beta5Experiments;
+			packageProductDependencies = (
+				792D209522F359690033C6BB /* Tagged */,
+			);
 			productName = Beta5Experiments;
 			productReference = 7973051822F1D58400F85B1F /* Beta5Experiments.app */;
 			productType = "com.apple.product-type.application";
@@ -196,6 +230,9 @@
 				Base,
 			);
 			mainGroup = 7973050F22F1D58400F85B1F;
+			packageReferences = (
+				792D209422F359690033C6BB /* XCRemoteSwiftPackageReference "swift-tagged" */,
+			);
 			productRefGroup = 7973051922F1D58400F85B1F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -231,13 +268,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				792D209322F358CA0033C6BB /* ListWithSingleSelection.swift in Sources */,
 				7973051C22F1D58400F85B1F /* AppDelegate.swift in Sources */,
+				792D209022F358CA0033C6BB /* RemoteData.swift in Sources */,
+				792D208E22F358CA0033C6BB /* ScriptView.swift in Sources */,
+				792D209122F358CA0033C6BB /* Lookup.swift in Sources */,
 				79FB664E22F3127E00B43568 /* Effect.swift in Sources */,
 				79FB664822F2F1D900B43568 /* App.swift in Sources */,
 				7973051E22F1D58400F85B1F /* SceneDelegate.swift in Sources */,
+				792D209222F358CA0033C6BB /* IdentifyableTagged.swift in Sources */,
+				792D208D22F358CA0033C6BB /* Collection+Modify.swift in Sources */,
 				79FB664C22F310A600B43568 /* Store.swift in Sources */,
 				79FB665022F3138500B43568 /* SubscriptionEffect.swift in Sources */,
 				79FB664A22F2F2DE00B43568 /* StoreView.swift in Sources */,
+				792D208F22F358CA0033C6BB /* FoundationExtensions.swift in Sources */,
 				7973052022F1D58400F85B1F /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,6 +543,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		792D209422F359690033C6BB /* XCRemoteSwiftPackageReference "swift-tagged" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-tagged";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		792D209522F359690033C6BB /* Tagged */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 792D209422F359690033C6BB /* XCRemoteSwiftPackageReference "swift-tagged" */;
+			productName = Tagged;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 7973051022F1D58400F85B1F /* Project object */;
 }
