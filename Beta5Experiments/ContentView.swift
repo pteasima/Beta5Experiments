@@ -14,27 +14,31 @@ final class StateObject<State>: ObservableObject {
     @Published var state: State
 }
 
-@dynamicMemberLookup struct Store<State, Action>: DynamicProperty {
+@dynamicMemberLookup final class Store<State, Action> {
     @ObservedObject private var stateObject: StateObject<State>
-    var dispatch: (Action) -> ()
+    let dispatch: (Action) -> ()
     
-    private init(state: State, dispatch: @escaping (Action) -> Void) {
-        stateObject = StateObject(state: state)
+    private var strongReferences: [Any] = [] //used to retain disposables and Program, no need to keep type of either
+    
+    //this generic version segfaults at callsite, we need to typeErase for now
+//    private init<P: Publisher>(initialState: State, dispatch: @escaping (Action) -> Void, willChange: P) where P.Output == State, P.Failure == Never { }
+
+    private init(initialState: State, dispatch: @escaping (Action) -> Void, willChange: AnyPublisher<State, Never>) {
+        stateObject = StateObject(state: initialState)
         self.dispatch = dispatch
+        strongReferences.append(willChange.assign(to: \.state, on: stateObject))
     }
+
+    
     static func just(_ state: State) -> Store {
-        self.init(state: state, dispatch: {
+        self.init(initialState: state, dispatch: {
             print($0)
-        })
+        }, willChange: Empty(completeImmediately: true).eraseToAnyPublisher())
     }
-    
-    
     
     subscript<Subject>(dynamicMember keyPath: KeyPath<State, Subject>) -> Subject {
         stateObject.state[keyPath: keyPath]
     }
-    
-    
     
     subscript<Subject>(dynamicMember keyPath: KeyPath<State, Subject>) -> (@escaping (Subject) -> Action) -> Binding<Subject> {
         { transform in
