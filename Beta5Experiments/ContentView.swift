@@ -38,7 +38,7 @@ extension StoreView {
 struct Effect<Action, Environments> {
     
 }
-struct SubscriptionEffect<Action, Environment> {
+struct SubscriptionEffect<Action, Environment>: Equatable {
     
 }
 
@@ -62,7 +62,8 @@ final class StateObject<State>: ObservableObject {
         strongReferences.append(willChange.assign(to: \.state, on: stateObject))
     }
     
-    static func application<Environment>(environment: Environment, initial: (state: State, effects: [Effect<Action, Environment>]), reduce: @escaping (inout State) -> [Effect<Action, Environment>]) -> Store {
+    static func application<Environment>(environment: Environment, initial: (state: State, effects: [Effect<Action, Environment>]), reduce: @escaping (inout State) -> [Effect<Action, Environment>], subscriptions: (State) -> [SubscriptionEffect<Action, Environment>]) -> Store {
+        //TODO: use Program internally (rename to Application)
         Store.just(initial.0)
     }
     
@@ -136,7 +137,7 @@ struct ContentView: StoreView {
         VStack {
             Text("Hello World")
             Text(verbatim: "\(self.foo)")
-            Toggle(isOn: self.foo { _ in .init() }) {
+            Toggle(isOn: self.foo { _ in .none }) {
                 EmptyView()
             }
             Button(action: {
