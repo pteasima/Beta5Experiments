@@ -2,6 +2,7 @@ import Foundation
 import Tagged
 
 struct AppState {
+    var effectToCancel: EffectManager.EffectID?
     var selectedGistID: Gist.ID? //TODO: model this with ListWithSingleSelection?
     var gists: [GistModel] = [
     ]

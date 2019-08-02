@@ -27,13 +27,19 @@ struct Effect<Action, Environment> {
                 }).eraseToAnyPublisher()
         }
     }
+    
+    // this is convencience to easily store EffectID in state for later cancellation
+    static func >>(effect: Effect, id: inout EffectManager.EffectID?) -> Effect {
+        id = effect.id
+        return effect
+    }
 }
 
 // MARK: add effect
 
 // this is the "raw-closure" syntax
 // you can return an arbitrary publisher
-prefix func +<Action, Environment, P: Publisher>(_ perform: @escaping (Environment) -> P) -> Effect<Action, Environment> where P.Output == Action, P.Failure == Never {
+prefix func +<Action, Environment, P: Publisher>(perform: @escaping (Environment) -> P) -> Effect<Action, Environment> where P.Output == Action, P.Failure == Never {
     Effect { environment in
         perform(environment)
     }
@@ -42,12 +48,11 @@ prefix func +<Action, Environment, P: Publisher>(_ perform: @escaping (Environme
 // prefer this for the usual service vars
 // it doesnt give you freedom to return arbitrary publisher, which is a good thing
 // this cannot be used to call a method (neither normal nor generic) on a service
-prefix func +<Action, Environment, Input, Output, P: Publisher>(_ params: (KeyPath<Environment, (Input) -> P>, Input, (Output) -> Action)) -> Effect<Action, Environment> where P.Output == Output, P.Failure == Never {
+prefix func +<Action, Environment, Input, Output, P: Publisher>(params: (KeyPath<Environment, (Input) -> P>, Input, (Output) -> Action)) -> Effect<Action, Environment> where P.Output == Output, P.Failure == Never {
     Effect { environment in
         environment[keyPath: params.0](params.1).map(params.2)
     }
 }
-
 // we briefly had a "keyPathToService + serviceMethod + input + transform" syntax
 // it was getting crazy with 6 generic params
 // wasnt much safer than raw anyway (could still supply arbitrary closure in place of "serviceMethod")
