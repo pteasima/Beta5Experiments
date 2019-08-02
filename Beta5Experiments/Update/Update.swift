@@ -9,6 +9,73 @@ extension AppState: Application {
         case selectGist(id: Gist.ID)
         case gist(id: Gist.ID, gistAction: GistState.Action)
         case fetchedFile(contents: Result<String, Error>, fromURL: URL)
+        
+        var none: Void? {
+            get {
+                guard case .none = self else { return nil }
+                return ()
+            }
+            set {
+                guard let _ = newValue else { return }
+                self = .none
+            }
+        }
+
+        var gistListAppear: Void? {
+            get {
+                guard case .gistListAppear = self else { return nil }
+                return ()
+            }
+            set {
+                guard let _ = newValue else { return }
+                self = .gistListAppear
+            }
+        }
+
+        var fetchedGists: Result<[Gist], Error>? {
+            get {
+                guard case let .fetchedGists(value) = self else { return nil }
+                return value
+            }
+            set {
+                guard let newValue = newValue else { return }
+                self = .fetchedGists(newValue)
+            }
+        }
+
+        var selectGist: Gist.ID? {
+            get {
+                guard case let .selectGist(value) = self else { return nil }
+                return value
+            }
+            set {
+                guard let newValue = newValue else { return }
+                self = .selectGist(id: newValue)
+            }
+        }
+
+        var gist: (id: Gist.ID, gistAction: GistState.Action)? {
+            get {
+                guard case let .gist(value) = self else { return nil }
+                return value
+            }
+            set {
+                guard let newValue = newValue else { return }
+                self = .gist(id: newValue.0, gistAction: newValue.1)
+            }
+        }
+
+        var fetchedFile: (contents: Result<String, Error>, fromURL: URL)? {
+            get {
+                guard case let .fetchedFile(value) = self else { return nil }
+                return value
+            }
+            set {
+                guard let newValue = newValue else { return }
+                self = .fetchedFile(contents: newValue.0, fromURL: newValue.1)
+            }
+        }
+
     }
 
     mutating func reduce(_ action: Action) -> [Effect<Action, Environment>] {
