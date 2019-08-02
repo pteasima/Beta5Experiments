@@ -60,6 +60,7 @@ extension AppState: Application {
                 return [
                     +(\.github.login, "myusername", { _ in .none }),
                     +{ $0.github.bar(stringParam: "bar").map { _ in .none } },
+                    -(EffectManager.EffectID(rawValue: "theEff")),
 //                    Cmd(\.http.delete, HTTP.DeleteParams(url: URL(string: "https://api.github.com/gists/\(id.rawValue)")!, headers: ["Authorization" : "token d51bd98a7e8cd9838d13b2078a0f7851194ef96c"])) { (_: Data) in
 //                        .gist(id: id, msg: .didDelete)
 //                    }

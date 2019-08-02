@@ -16,7 +16,7 @@ struct Effect<Action, Environment> {
         self.perform = { _, env in perform(env).eraseToAnyPublisher() }
     }
     
-    private init(cancel effectID: Tagged<EffectManager, String>) {
+    fileprivate init(cancel effectID: Tagged<EffectManager, String>) {
         // technically theres no reason to support cancelling a cancel effect (its always synchronous)
         // but we return a proper id cause why not
         id = .init(rawValue: UUID().uuidString)
@@ -28,6 +28,8 @@ struct Effect<Action, Environment> {
         }
     }
 }
+
+// MARK: add effect
 
 // this is the "raw-closure" syntax
 // you can return an arbitrary publisher
@@ -51,3 +53,8 @@ prefix func +<Action, Environment, Input, Output, P: Publisher>(_ params: (KeyPa
 // wasnt much safer than raw anyway (could still supply arbitrary closure in place of "serviceMethod")
 // prefer raw-closure syntax when you cant use keyPath-input-transform syntax
 
+// MARK: cancel effect
+
+prefix func -<Action, Environment>(_ id: EffectManager.EffectID) -> Effect<Action, Environment> {
+    Effect(cancel: id)
+}
