@@ -109,12 +109,12 @@ fileprivate final class ElmProgram<State, Action, Environment>: EffectManager {
     private var queue : [Action] = []
     private var subscriptions: [(subscription: SubscriptionEffect<Action, Environment>, cancellable: AnyCancellable)] = []//subscriptions we've already fired and may want to cancel
 
-    func cancelEffect(id: Tagged<EffectManager, String>) {
+    func cancelEffect(id: EffectManager.EffectID) {
         let cancellable = effectCancellables[id]
         cancellable?.cancel() // call cancel just to be safe (it should get cancelled on dealloc anyway)
         effectCancellables[id] = nil
     }
-    private var effectCancellables: [Tagged<EffectManager, String>: AnyCancellable] = [:]
+    private var effectCancellables: [EffectManager.EffectID: AnyCancellable] = [:]
     init(initialState: State, initialEffects: [Effect<Action, Environment>], update: @escaping (inout State, Action) -> [Effect<Action, Environment>], subscriptions: @escaping (State) -> [SubscriptionEffect<Action, Environment>], effects: Environment) {
         draftState = initialState
         state = initialState
@@ -134,7 +134,7 @@ fileprivate final class ElmProgram<State, Action, Environment>: EffectManager {
                         let effs = update(&self.draftState, currentMsg)
                         effs.forEach {
                             var cancellable: AnyCancellable?
-                            let uuid = Tagged<EffectManager, String>(rawValue: UUID().uuidString)
+                            let uuid = $0.id
                             var completedAlready = false
                             cancellable = AnyCancellable($0.perform(self, effects)
                                 .sink(receiveCompletion: { [weak self] _ in
