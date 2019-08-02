@@ -20,4 +20,8 @@ extension StoreView {
         where Action: EmptyInitializable {
             self.store[dynamicMember: keyPath]
     }
+    subscript<P1,P2>(dynamicMember keyPath: WritableKeyPath<Action, (P1, P2)?>) -> (P1, P2) -> Void
+        where Action: EmptyInitializable {
+            self.store[dynamicMember: keyPath]
+    }
 }

@@ -2,7 +2,9 @@ import Foundation
 import Combine
 
 extension AppState: Application {
-    enum Action {
+    enum Action: EmptyInitializable {
+        init() { self = .none }
+        
         case none
         case gistListAppear
         case fetchedGists(Result<[Gist], Error>)
@@ -54,7 +56,7 @@ extension AppState: Application {
             }
         }
 
-        var gist: (id: Gist.ID, gistAction: GistState.Action)? {
+        var gist: (Gist.ID, GistState.Action)? {
             get {
                 guard case let .gist(value) = self else { return nil }
                 return value
@@ -65,7 +67,7 @@ extension AppState: Application {
             }
         }
 
-        var fetchedFile: (contents: Result<String, Error>, fromURL: URL)? {
+        var fetchedFile: (Result<String, Error>, URL)? {
             get {
                 guard case let .fetchedFile(value) = self else { return nil }
                 return value

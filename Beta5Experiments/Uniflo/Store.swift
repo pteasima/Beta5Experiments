@@ -69,6 +69,9 @@ final class StateObject<State>: ObservableObject {
                 self.dispatch(action)
             }
     }
+    subscript<P1,P2>(dynamicMember keyPath: WritableKeyPath<Action, (P1, P2)?>) -> (P1, P2) -> Void {
+        fatalError()
+    }
     
     //...
     

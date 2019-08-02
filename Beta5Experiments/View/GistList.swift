@@ -17,7 +17,7 @@ struct GistList: StoreView {
                         Group {
                             gist.state.idle.map {
                                 VStack {
-                                Button(action: { /*self.dispatch(.selectGist(id: gist.id)) */}) {
+                                Button(action: { self.selectGist(gist.id) }) {
                                     Text(verbatim: gist.description)
                                 }
                                 Text(verbatim: gist.filesDisplayString)
@@ -27,13 +27,13 @@ struct GistList: StoreView {
                             gist.state.deleting.map { Text("Deleting") }
                         }
                     }
-//                    .onDelete { deletedIndices in
-//                        deletedIndices.compactMap {
-//                            self.gists[safe: $0]?.id
-//                        }
-//                        .map { .gist(id: $0, msg: .delete) }
-//                        .forEach(self.dispatch) //we shouldnt dispatch multiple times but afaik there will always be just one deletedIndex
-//                    }
+                    .onDelete { deletedIndices in
+                        deletedIndices.compactMap {
+                            self.gists[safe: $0]?.id
+                        }
+                            .forEach { self.gist($0, .delete) } //we shouldnt dispatch multiple times but afaik there will always be just one deletedIndex
+                        
+                    }
                 }
                 .navigationBarTitle(Text("Gists"))
 //                    .background(Navigator<GistModel, Gist.ID, GistDetail>(
