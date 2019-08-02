@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import Tagged
 
 struct Unit: EmptyInitializable { }
 
@@ -96,7 +97,7 @@ extension Store where State: Application, State.Action == Action {
     }
 }
 
-fileprivate final class ElmProgram<State, Action, Environment> {
+fileprivate final class ElmProgram<State, Action, Environment>: EffectManager {
     private(set) lazy var dispatch: (Action) -> Void = {
         self._dispatch($0)
     }
@@ -107,8 +108,13 @@ fileprivate final class ElmProgram<State, Action, Environment> {
     private var isIdle = true
     private var queue : [Action] = []
     private var subscriptions: [(subscription: SubscriptionEffect<Action, Environment>, cancellable: AnyCancellable)] = []//subscriptions we've already fired and may want to cancel
-    
-    private var effectCancellables: [AnyCancellable] = []
+
+    func cancelEffect(id: Tagged<EffectManager, String>) {
+        let cancellable = effectCancellables[id]
+        cancellable?.cancel() // call cancel just to be safe (it should get cancelled on dealloc anyway)
+        effectCancellables[id] = nil
+    }
+    private var effectCancellables: [Tagged<EffectManager, String>: AnyCancellable] = [:]
     init(initialState: State, initialEffects: [Effect<Action, Environment>], update: @escaping (inout State, Action) -> [Effect<Action, Environment>], subscriptions: @escaping (State) -> [SubscriptionEffect<Action, Environment>], effects: Environment) {
         draftState = initialState
         state = initialState
@@ -128,19 +134,16 @@ fileprivate final class ElmProgram<State, Action, Environment> {
                         let effs = update(&self.draftState, currentMsg)
                         effs.forEach {
                             var cancellable: AnyCancellable?
+                            let uuid = Tagged<EffectManager, String>(rawValue: UUID().uuidString)
                             var completedAlready = false
-                            cancellable = AnyCancellable($0.perform(effects)
+                            cancellable = AnyCancellable($0.perform(self, effects)
                                 .sink(receiveCompletion: { [weak self] _ in
-                                    //effectCancellables shouldnt grow indefinitelly, so we remove the cancellable on completion
-                                    // TODO: removeFirst(where:)
-                                    // TODO: this can still run on a background thread (only in dispatch do we switch to main thread), is this safe?
-                                    if let cancellable = cancellable {
-                                        self?.effectCancellables.removeAll { $0 === cancellable }
-                                    }
+                                    // effectCancellables shouldnt grow indefinitely so we make sure we always remove it on completion
+                                    self?.cancelEffect(id: uuid)
                                     completedAlready = true
                                     },receiveValue: self.dispatch))
                             if !completedAlready { //only append it unless it completed synchronously (Afaik you cant tell from the cancellable if its still alive)
-                                self.effectCancellables.append(cancellable!)
+                                self.effectCancellables[uuid] = cancellable
                             }
                         }
                         

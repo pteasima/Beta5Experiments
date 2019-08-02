@@ -1,10 +1,25 @@
 import Foundation
 import Combine
+import Tagged
+
+// ElmProgram conforms to this to allow effect cancellation and possibly other internal program tasks in the future
+protocol EffectManager {
+    func cancelEffect(id: Tagged<EffectManager, String>)
+}
 
 struct Effect<Action, Environment> {
-    let perform: (Environment) -> AnyPublisher<Action, Never>
+    let perform: (EffectManager, Environment) -> AnyPublisher<Action, Never>
     init<P: Publisher>(perform: @escaping (Environment) -> P) where P.Output == Action, P.Failure == Never {
-        self.perform = { perform($0).eraseToAnyPublisher() }
+        self.perform = { _, env in perform(env).eraseToAnyPublisher() }
+    }
+    
+    private init(cancel: Tagged<EffectManager, String>) {
+        self.perform = { effManager, _ in
+            Empty<Action, Never>(completeImmediately: true)
+                .handleEvents(receiveSubscription: { _ in
+                    
+                }).eraseToAnyPublisher()
+        }
     }
 }
 extension Effect {
