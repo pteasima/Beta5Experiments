@@ -1,8 +1,8 @@
 import Foundation
 import Combine
-#if canImport(XCTest)
-    import XCTest
-#endif
+//#if canImport(XCTest)
+//    import XCTest
+//#endif
 
 private let token = "3afeb0a0592b48eec18873b6bd3413352302cb9c"
 
@@ -10,18 +10,18 @@ struct Github {
     var login: (String) -> AnyPublisher<Data, Never> = { _ in
         Empty(completeImmediately: true).breakpoint(receiveSubscription: {
             print($0)
-            #if canImport(XCTest)
-            XCTAssert(false)
-            #endif
+//            #if canImport(XCTest)
+//            XCTAssert(false)
+//            #endif
             return true
         }).eraseToAnyPublisher()
     }
     var getGists: (String) -> AnyPublisher<Result<[Gist], Error>, Never> = { _ in
         Empty(completeImmediately: true).breakpoint(receiveSubscription: {
             print($0)
-            #if canImport(XCTest)
-            XCTAssert(false)
-            #endif
+//            #if canImport(XCTest)
+//            XCTAssert(false)
+//            #endif
             return true
         }).eraseToAnyPublisher()
     }
