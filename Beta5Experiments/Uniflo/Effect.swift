@@ -28,7 +28,7 @@ struct Effect<Action, Environment> {
         }
     }
     
-    // this is convencience to easily store EffectID in state for later cancellation
+    // this is convencience to easily store EffectID in State for later cancellation
     static func >>(effect: Effect, id: inout EffectManager.EffectID?) -> Effect {
         id = effect.id
         return effect
@@ -62,4 +62,16 @@ prefix func +<Action, Environment, Input, Output, P: Publisher>(params: (KeyPath
 
 prefix func -<Action, Environment>(_ id: EffectManager.EffectID) -> Effect<Action, Environment> {
     Effect(cancel: id)
+}
+
+// this is convenience easily cancel an effect and nil-out a state property that tracked its id
+prefix func -<Action, Environment>(_ id: inout EffectManager.EffectID?) -> Effect<Action, Environment> {
+    let effect: Effect<Action, Environment>
+    if let id = id {
+       effect  = Effect(cancel: id)
+    } else {
+        effect = Effect { _ in Empty(completeImmediately: true) }
+    }
+    id = nil
+    return effect
 }
