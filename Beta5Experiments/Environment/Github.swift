@@ -16,7 +16,7 @@ struct Github {
             return true
         }).eraseToAnyPublisher()
     }
-    var getGists: () -> AnyPublisher<(), Never> = {
+    var getGists: (String) -> AnyPublisher<Result<[Gist], Error>, Never> = { _ in
         Empty(completeImmediately: true).breakpoint(receiveSubscription: {
             print($0)
             #if canImport(XCTest)
@@ -35,24 +35,23 @@ struct Github {
 }
 extension Github {
     static let live: Github = .init(
-        getGists: {
-            Just(()).eraseToAnyPublisher()
+        getGists: { _ in
+            Just(.success([
+                Gist(
+                    id: .init(rawValue: "1"),
+                    description: "first",
+                    files: []
+                ),
+                Gist(
+                    id: .init(rawValue: "2"),
+                    description: "second",
+                    files: []
+                ),
+                Gist(
+                    id: .init(rawValue: "3"),
+                    description: "third",
+                    files: []
+                ),
+            ])).eraseToAnyPublisher()
     })
 }
-/*
-// if you want this non-KeyPath-based API you have to create an extra protocol (HasGithub)
-// its probably useful since you can use generics and still refer to Github's var internally
-// alternatively, we could disallow this and force
-protocol HasGithub {
-    var github: Github { get }
-}
-extension Environment: HasGithub { }
-extension Effect where Environment: HasGithub {
-    static func login(_ username: String/*, action: @escaping (Data) -> Action*/) -> Effect {
-        .init { environment in
-            
-            Empty(completeImmediately: true)
-        }
-    }
-}
-*/

@@ -64,7 +64,7 @@ prefix func -<Action, Environment>(_ id: EffectManager.EffectID) -> Effect<Actio
     Effect(cancel: id)
 }
 
-// this is convenience easily cancel an effect and nil-out a state property that tracked its id
+// this is convenience to easily cancel an effect and nil-out a state property that tracked its id
 prefix func -<Action, Environment>(_ id: inout EffectManager.EffectID?) -> Effect<Action, Environment> {
     let effect: Effect<Action, Environment>
     if let id = id {

@@ -7,7 +7,6 @@ struct Unit: EmptyInitializable { }
 protocol Application {
     associatedtype Action = Never
     associatedtype Environment = Unit
-    var environment: Environment { get }
     var initialEffects: [Effect<Action, Environment>] { get }
     mutating func reduce(_ action: Action) -> [Effect<Action, Environment>]
     func subscriptions() -> [SubscriptionEffect<Action, Environment>]
@@ -92,8 +91,8 @@ final class StateObject<State>: ObservableObject {
     }
 }
 extension Store where State: Application, State.Action == Action {
-    static func application(_ initialState: State) -> Store {
-        self.application(environment: initialState.environment, initialState: initialState, initialEffects: initialState.initialEffects, reduce: { $0.reduce($1) }, subscriptions: { $0.subscriptions() })
+    static func application(state : State, environment: State.Environment) -> Store {
+        self.application(environment: environment, initialState: state, initialEffects: state.initialEffects, reduce: { $0.reduce($1) }, subscriptions: { $0.subscriptions() })
     }
 }
 
@@ -118,9 +117,39 @@ fileprivate final class ElmProgram<State, Action, Environment>: EffectManager {
     init(initialState: State, initialEffects: [Effect<Action, Environment>], update: @escaping (inout State, Action) -> [Effect<Action, Environment>], subscriptions: @escaping (State) -> [SubscriptionEffect<Action, Environment>], effects: Environment) {
         draftState = initialState
         state = initialState
-        
-        //TODO: run the initial effects, we currently ignore them
-        
+        let processEffects: ([Effect<Action, Environment>]) -> Void = { [unowned self] effs in
+            effs.forEach {
+                var cancellable: AnyCancellable?
+                let uuid = $0.id
+                var completedAlready = false
+                cancellable = AnyCancellable($0.perform(self, effects)
+                    .sink(receiveCompletion: { [weak self] _ in
+                        // effectCancellables shouldnt grow indefinitely so we make sure we always remove it on completion
+                        self?.cancelEffect(id: uuid)
+                        completedAlready = true
+                        },receiveValue: self.dispatch))
+                if !completedAlready { //only append it unless it completed synchronously (Afaik you cant tell from the cancellable if its still alive)
+                    self.effectCancellables[uuid] = cancellable
+                }
+            }
+            
+            let subs = subscriptions(self.state)
+            // we cant do a collection.difference here, since that can produce .inserts and .removes for reordering
+            // we dont care about order, just cancel and remove old ones and append new ones
+            self.subscriptions.forEach { oldSub in
+                if !subs.contains(oldSub.subscription) {
+                    oldSub.cancellable.cancel()
+                    // TODO: removeFirst(where:)
+                    self.subscriptions.removeAll { $0.subscription == oldSub.subscription }
+                }
+            }
+            subs.forEach { newSub in
+                if !self.subscriptions.contains(where: { $0.subscription == newSub }) {
+                    let cancellable = AnyCancellable(newSub.perform(effects).sink(receiveValue: self.dispatch))
+                    self.subscriptions.append((newSub, cancellable))
+                }
+            }
+        }
         _dispatch = { [weak self] msg in
             let dispatchOnMainThread = { [weak self] in
                 guard let self = self else { assertionFailure("if I properly managed all cancellables, a dispatch on a dead Program would never happen"); return }
@@ -132,37 +161,7 @@ fileprivate final class ElmProgram<State, Action, Environment>: EffectManager {
                     while !self.queue.isEmpty {
                         let currentMsg = self.queue.removeFirst()
                         let effs = update(&self.draftState, currentMsg)
-                        effs.forEach {
-                            var cancellable: AnyCancellable?
-                            let uuid = $0.id
-                            var completedAlready = false
-                            cancellable = AnyCancellable($0.perform(self, effects)
-                                .sink(receiveCompletion: { [weak self] _ in
-                                    // effectCancellables shouldnt grow indefinitely so we make sure we always remove it on completion
-                                    self?.cancelEffect(id: uuid)
-                                    completedAlready = true
-                                    },receiveValue: self.dispatch))
-                            if !completedAlready { //only append it unless it completed synchronously (Afaik you cant tell from the cancellable if its still alive)
-                                self.effectCancellables[uuid] = cancellable
-                            }
-                        }
-                        
-                        let subs = subscriptions(self.state)
-                        // we cant do a collection.difference here, since that can produce .inserts and .removes for reordering
-                        // we dont care about order, just cancel and remove old ones and append new ones
-                        self.subscriptions.forEach { oldSub in
-                            if !subs.contains(oldSub.subscription) {
-                                oldSub.cancellable.cancel()
-                                // TODO: removeFirst(where:)
-                                self.subscriptions.removeAll { $0.subscription == oldSub.subscription }
-                            }
-                        }
-                        subs.forEach { newSub in
-                            if !self.subscriptions.contains(where: { $0.subscription == newSub }) {
-                                let cancellable = AnyCancellable(newSub.perform(effects).sink(receiveValue: self.dispatch))
-                                self.subscriptions.append((newSub, cancellable))
-                            }
-                        }
+                        processEffects(effs)
                     }
                     
                     self.willChange.send(self.draftState)
@@ -177,5 +176,7 @@ fileprivate final class ElmProgram<State, Action, Environment>: EffectManager {
                 }
             }
         }
+        
+        processEffects(initialEffects)
     }
 }

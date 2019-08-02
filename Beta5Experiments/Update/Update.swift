@@ -2,21 +2,13 @@ import Foundation
 import Combine
 
 extension AppState: Application {
-    var environment: Environment { .init() }
-
     enum Action {
         case none
         case gistListAppear
         case fetchedGists(Result<[Gist], Error>)
         case selectGist(id: Gist.ID)
-        case gist(id: Gist.ID, gistAction: GistAction)
+        case gist(id: Gist.ID, gistAction: GistState.Action)
         case fetchedFile(contents: Result<String, Error>, fromURL: URL)
-    }
-    
-    enum GistAction {
-        case delete
-        case disappear
-        case didDelete
     }
 
     mutating func reduce(_ action: Action) -> [Effect<Action, Environment>] {
@@ -31,7 +23,7 @@ extension AppState: Application {
         case let .fetchedGists(result):
             switch result {
             case let .success(gists):
-                self.gists = gists.map { GistModel(gist: $0) }
+                self.gists = gists.map { GistState(gist: $0) }
                 error = nil
             case let .failure(error):
                 self.error = error.localizedDescription
@@ -90,6 +82,19 @@ extension AppState: Application {
         ]
     }
 
+    var initialEffects: [Effect<AppState.Action, Environment>] {
+        [
+            +(\.github.getGists, "dummyParam", { .fetchedGists($0) })
+        ]
+    }
+}
+
+extension GistState {
+    enum Action {
+        case delete
+        case disappear
+        case didDelete
+    }
 }
 
 

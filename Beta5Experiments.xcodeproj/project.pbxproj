@@ -18,15 +18,19 @@
 		792D209922F359F90033C6BB /* Github.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D209822F359F90033C6BB /* Github.swift */; };
 		792D209B22F35A040033C6BB /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D209A22F35A040033C6BB /* Environment.swift */; };
 		792D209D22F35B370033C6BB /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D209C22F35B370033C6BB /* Clock.swift */; };
-		792D20A122F35C420033C6BB /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D209F22F35C410033C6BB /* Model.swift */; };
+		792D20A122F35C420033C6BB /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D209F22F35C410033C6BB /* AppState.swift */; };
 		792D20A522F35CC40033C6BB /* Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 792D20A422F35CC40033C6BB /* Update.swift */; };
 		7973051C22F1D58400F85B1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973051B22F1D58400F85B1F /* AppDelegate.swift */; };
-		7973051E22F1D58400F85B1F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973051D22F1D58400F85B1F /* SceneDelegate.swift */; };
-		7973052022F1D58400F85B1F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973051F22F1D58400F85B1F /* ContentView.swift */; };
 		7973052222F1D58600F85B1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7973052122F1D58600F85B1F /* Assets.xcassets */; };
 		7973052522F1D58600F85B1F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7973052422F1D58600F85B1F /* Preview Assets.xcassets */; };
 		7973052822F1D58600F85B1F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7973052622F1D58600F85B1F /* LaunchScreen.storyboard */; };
 		7973053322F1D58600F85B1F /* Beta5ExperimentsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7973053222F1D58600F85B1F /* Beta5ExperimentsTests.swift */; };
+		798C8DCE22F4975500387911 /* GistList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798C8DCC22F4975500387911 /* GistList.swift */; };
+		798C8DCF22F4975500387911 /* GistDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798C8DCD22F4975500387911 /* GistDetail.swift */; };
+		798C8DD222F497C000387911 /* Gen in Frameworks */ = {isa = PBXBuildFile; productRef = 798C8DD122F497C000387911 /* Gen */; };
+		798C8DD522F49AA400387911 /* GistState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798C8DD422F49AA400387911 /* GistState.swift */; };
+		798C8DD822F49B3400387911 /* Gist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798C8DD722F49B3400387911 /* Gist.swift */; };
+		798C8DDA22F49B6200387911 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798C8DD922F49B6200387911 /* File.swift */; };
 		79FB664822F2F1D900B43568 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664722F2F1D900B43568 /* App.swift */; };
 		79FB664A22F2F2DE00B43568 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664922F2F2DE00B43568 /* StoreView.swift */; };
 		79FB664C22F310A600B43568 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664B22F310A600B43568 /* Store.swift */; };
@@ -55,12 +59,10 @@
 		792D209822F359F90033C6BB /* Github.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Github.swift; sourceTree = "<group>"; };
 		792D209A22F35A040033C6BB /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		792D209C22F35B370033C6BB /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
-		792D209F22F35C410033C6BB /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		792D209F22F35C410033C6BB /* AppState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		792D20A422F35CC40033C6BB /* Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Update.swift; sourceTree = "<group>"; };
 		7973051822F1D58400F85B1F /* Beta5Experiments.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Beta5Experiments.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7973051B22F1D58400F85B1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		7973051D22F1D58400F85B1F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7973051F22F1D58400F85B1F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		7973052122F1D58600F85B1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7973052422F1D58600F85B1F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		7973052722F1D58600F85B1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -68,6 +70,11 @@
 		7973052E22F1D58600F85B1F /* Beta5ExperimentsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Beta5ExperimentsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7973053222F1D58600F85B1F /* Beta5ExperimentsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beta5ExperimentsTests.swift; sourceTree = "<group>"; };
 		7973053422F1D58600F85B1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		798C8DCC22F4975500387911 /* GistList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GistList.swift; sourceTree = "<group>"; };
+		798C8DCD22F4975500387911 /* GistDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GistDetail.swift; sourceTree = "<group>"; };
+		798C8DD422F49AA400387911 /* GistState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GistState.swift; sourceTree = "<group>"; };
+		798C8DD722F49B3400387911 /* Gist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gist.swift; sourceTree = "<group>"; };
+		798C8DD922F49B6200387911 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		79FB664722F2F1D900B43568 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		79FB664922F2F2DE00B43568 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		79FB664B22F310A600B43568 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -81,6 +88,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				792D209622F359690033C6BB /* Tagged in Frameworks */,
+				798C8DD222F497C000387911 /* Gen in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -121,8 +129,9 @@
 		792D209E22F35C410033C6BB /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				792D209F22F35C410033C6BB /* Model.swift */,
-				792D20A322F35CB30033C6BB /* Update */,
+				792D209F22F35C410033C6BB /* AppState.swift */,
+				798C8DD422F49AA400387911 /* GistState.swift */,
+				798C8DD622F49B2A00387911 /* GithubModels */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -160,9 +169,9 @@
 				7990495522F320240067BF43 /* Uniflo */,
 				792D209722F359E40033C6BB /* Environment */,
 				792D209E22F35C410033C6BB /* Model */,
+				792D20A322F35CB30033C6BB /* Update */,
+				798C8DCB22F4975500387911 /* View */,
 				7973051B22F1D58400F85B1F /* AppDelegate.swift */,
-				7973051D22F1D58400F85B1F /* SceneDelegate.swift */,
-				7973051F22F1D58400F85B1F /* ContentView.swift */,
 				79FB664722F2F1D900B43568 /* App.swift */,
 				7973052122F1D58600F85B1F /* Assets.xcassets */,
 				7973052622F1D58600F85B1F /* LaunchScreen.storyboard */,
@@ -187,6 +196,24 @@
 				7973053422F1D58600F85B1F /* Info.plist */,
 			);
 			path = Beta5ExperimentsTests;
+			sourceTree = "<group>";
+		};
+		798C8DCB22F4975500387911 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				798C8DCC22F4975500387911 /* GistList.swift */,
+				798C8DCD22F4975500387911 /* GistDetail.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		798C8DD622F49B2A00387911 /* GithubModels */ = {
+			isa = PBXGroup;
+			children = (
+				798C8DD722F49B3400387911 /* Gist.swift */,
+				798C8DD922F49B6200387911 /* File.swift */,
+			);
+			path = GithubModels;
 			sourceTree = "<group>";
 		};
 		7990495522F320240067BF43 /* Uniflo */ = {
@@ -218,6 +245,7 @@
 			name = Beta5Experiments;
 			packageProductDependencies = (
 				792D209522F359690033C6BB /* Tagged */,
+				798C8DD122F497C000387911 /* Gen */,
 			);
 			productName = Beta5Experiments;
 			productReference = 7973051822F1D58400F85B1F /* Beta5Experiments.app */;
@@ -271,6 +299,7 @@
 			mainGroup = 7973050F22F1D58400F85B1F;
 			packageReferences = (
 				792D209422F359690033C6BB /* XCRemoteSwiftPackageReference "swift-tagged" */,
+				798C8DD022F497C000387911 /* XCRemoteSwiftPackageReference "swift-gen" */,
 			);
 			productRefGroup = 7973051922F1D58400F85B1F /* Products */;
 			projectDirPath = "";
@@ -309,23 +338,26 @@
 			files = (
 				792D209322F358CA0033C6BB /* ListWithSingleSelection.swift in Sources */,
 				7973051C22F1D58400F85B1F /* AppDelegate.swift in Sources */,
+				798C8DD822F49B3400387911 /* Gist.swift in Sources */,
 				792D20A522F35CC40033C6BB /* Update.swift in Sources */,
+				798C8DCE22F4975500387911 /* GistList.swift in Sources */,
 				792D209022F358CA0033C6BB /* RemoteData.swift in Sources */,
+				798C8DDA22F49B6200387911 /* File.swift in Sources */,
 				792D208E22F358CA0033C6BB /* ScriptView.swift in Sources */,
 				792D209122F358CA0033C6BB /* Lookup.swift in Sources */,
 				79FB664E22F3127E00B43568 /* Effect.swift in Sources */,
 				79FB664822F2F1D900B43568 /* App.swift in Sources */,
-				7973051E22F1D58400F85B1F /* SceneDelegate.swift in Sources */,
 				792D209222F358CA0033C6BB /* IdentifyableTagged.swift in Sources */,
 				792D208D22F358CA0033C6BB /* Collection+Modify.swift in Sources */,
 				792D209922F359F90033C6BB /* Github.swift in Sources */,
 				79FB664C22F310A600B43568 /* Store.swift in Sources */,
+				798C8DD522F49AA400387911 /* GistState.swift in Sources */,
 				792D209D22F35B370033C6BB /* Clock.swift in Sources */,
 				79FB665022F3138500B43568 /* SubscriptionEffect.swift in Sources */,
 				79FB664A22F2F2DE00B43568 /* StoreView.swift in Sources */,
 				792D208F22F358CA0033C6BB /* FoundationExtensions.swift in Sources */,
-				792D20A122F35C420033C6BB /* Model.swift in Sources */,
-				7973052022F1D58400F85B1F /* ContentView.swift in Sources */,
+				798C8DCF22F4975500387911 /* GistDetail.swift in Sources */,
+				792D20A122F35C420033C6BB /* AppState.swift in Sources */,
 				792D209B22F35A040033C6BB /* Environment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -597,6 +629,14 @@
 				minimumVersion = 0.4.0;
 			};
 		};
+		798C8DD022F497C000387911 /* XCRemoteSwiftPackageReference "swift-gen" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pointfreeco/swift-gen.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.2.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -604,6 +644,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 792D209422F359690033C6BB /* XCRemoteSwiftPackageReference "swift-tagged" */;
 			productName = Tagged;
+		};
+		798C8DD122F497C000387911 /* Gen */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 798C8DD022F497C000387911 /* XCRemoteSwiftPackageReference "swift-gen" */;
+			productName = Gen;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
