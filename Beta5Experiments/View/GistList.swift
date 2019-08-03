@@ -15,18 +15,18 @@ struct GistList: StoreView {
         List {
           ForEach(self.gists, id: \.id) { gist in
             Group {
-              gist.state.idle.map {
+              gist.status.idle.map {
                 VStack {
                   // I believe NavigatioLink is still bugged here. the last value read from the binding is false, yet screen gets pushed again once. After second pop its fixed.
                   // It also breaks if I use Binding to @State locally, so hopefully no bug in my Store
-                  NavigationLink(destination: Text("Detail"), tag: gist.id, selection: self.selectedGistID { $0.map(Action.selectGist) ?? .unselectGist }) {
+                  NavigationLink(destination: GistDetail(store: self.store.filterMap(initialState: gist, transform: { $0.gists.first { $0.id == gist.id } })), tag: gist.id, selection: self.selectedGistID { $0.map(Action.selectGist) ?? .unselectGist }) {
                     Text("push")
                   }
                   Text(verbatim: gist.filesDisplayString)
                     .foregroundColor(.gray)
                 }
               }
-              gist.state.deleting.map { Text("Deleting") }
+              gist.status.deleting.map { Text("Deleting") }
             }
           }
           .onDelete { deletedIndices in
@@ -68,3 +68,10 @@ struct GistList_Previews : PreviewProvider {
   }
 }
 #endif
+
+private let playground: () -> Void = {
+  let appState = AppState()
+  let gist = appState.gists[0]
+  var store : Store<AppState, AppState.Action> = .just(appState)
+  let x = store.filterMap(initialState: gist, transform: { $0.gists.first { $0.id == gist.id } })
+}

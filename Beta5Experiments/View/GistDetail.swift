@@ -10,9 +10,9 @@ import SwiftUI
 import Combine
 
 struct GistDetail: StoreView {
-    var store: Store<GistState, GistState.Action>
+    var store: Store<GistState, AppState.Action>
     var body: some View {
-        Text("GistDetail")
+      Text(verbatim: store.id.rawValue)
 //        switch self.files.map({ $0.content }) {
 //        default: break
 //        }

@@ -1,7 +1,7 @@
 import Tagged
 
 @dynamicMemberLookup struct GistState: Lookup {
-    enum State: Equatable {
+    enum Status: Equatable {
         case idle
         case deleting
 //        case deleteError(Error)
@@ -15,7 +15,7 @@ import Tagged
             return ()
         }
     }
-    var state: State = .idle
+    var status: Status = .idle
     
     static let model = \Self.gist
     private(set) var gist: Gist

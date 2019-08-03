@@ -36,7 +36,7 @@ final class StateObject<State>: ObservableObject {
 }
 
 @dynamicMemberLookup struct Store<State, Action>: DynamicProperty {
-  @ObservedObject private var stateObject: StateObject<State>
+  @ObservedObject var stateObject: StateObject<State>
   let dispatch: (Action) -> ()
   
   static func application<Environment>(environment: Environment, initialState: State, initialEffects: [Effect<Action, Environment>] = [], reduce: @escaping (inout State, Action) -> [Effect<Action, Environment>] = {_,_ in []}, subscriptions: @escaping (State) -> [SubscriptionEffect<Action, Environment>] = { _ in [] }) -> Store {
@@ -98,7 +98,7 @@ final class StateObject<State>: ObservableObject {
   //this generic version segfaults at callsite, we need to typeErase for now
   //    private init<P: Publisher>(initialState: State, dispatch: @escaping (Action) -> Void, willChange: P) where P.Output == State, P.Failure == Never { }
   
-  private init(initialState: State, dispatch: @escaping (Action) -> Void, willChange: AnyPublisher<State, Never>) {
+  init(initialState: State, dispatch: @escaping (Action) -> Void, willChange: AnyPublisher<State, Never>) {
     stateObject = StateObject(state: initialState)
     self.dispatch = dispatch
     strongReferences.append(willChange.assign(to: \.state, on: stateObject)

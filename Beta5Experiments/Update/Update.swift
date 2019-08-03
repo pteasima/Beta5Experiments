@@ -130,7 +130,7 @@ extension AppState: Application {
       case .delete:
         selectedGistID = nil
         gists.modify(where: { $0.id == id }) {
-          $0.state = .deleting
+          $0.status = .deleting
         }
         return [
           +{ $0.github.bar(stringParam: "bar").map { _ in .none } } >> effectToCancel,
