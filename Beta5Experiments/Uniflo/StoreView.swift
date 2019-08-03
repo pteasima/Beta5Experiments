@@ -15,6 +15,10 @@ extension StoreView {
     subscript<Subject>(dynamicMember keyPath: KeyPath<State, Subject>) -> (@escaping (Subject) -> Action) -> Binding<Subject> {
         store[dynamicMember: keyPath]
     }
+    subscript<Subject>(dynamicMember keyPath: KeyPath<State, Subject>) -> (@escaping (Subject) -> Action?) -> Binding<Subject> {
+        store[dynamicMember: keyPath]
+    }
+    
     
     subscript<ActionParam>(dynamicMember keyPath: WritableKeyPath<Action, ActionParam?>) -> (ActionParam) -> Void
         where Action: EmptyInitializable {

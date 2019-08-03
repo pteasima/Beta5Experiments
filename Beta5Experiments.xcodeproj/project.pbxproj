@@ -151,7 +151,9 @@
 				7973053122F1D58600F85B1F /* Beta5ExperimentsTests */,
 				7973051922F1D58400F85B1F /* Products */,
 			);
+			indentWidth = 2;
 			sourceTree = "<group>";
+			tabWidth = 2;
 		};
 		7973051922F1D58400F85B1F /* Products */ = {
 			isa = PBXGroup;
