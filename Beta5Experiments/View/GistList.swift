@@ -19,7 +19,11 @@ struct GistList: StoreView {
                 VStack {
                   // I believe NavigatioLink is still bugged here. the last value read from the binding is false, yet screen gets pushed again once. After second pop its fixed.
                   // It also breaks if I use Binding to @State locally, so hopefully no bug in my Store
-                  NavigationLink(destination: GistDetail(store: self.store.filterMap(initialState: gist, transform: { $0.gists.first { $0.id == gist.id } })), tag: gist.id, selection: self.selectedGistID { $0.map(Action.selectGist) ?? .unselectGist }) {
+                  NavigationLink(destination: GistDetail(
+                    store: self.store
+                      .filterMap(initialState: gist, transform: { $0.gists.first { $0.id == gist.id } })
+                      .pullback { .gist(id: gist.id, gistAction: $0) }
+                  ), tag: gist.id, selection: self.selectedGistID { $0.map(Action.selectGist) ?? .unselectGist }) {
                     Text("push")
                   }
                   Text(verbatim: gist.filesDisplayString)
