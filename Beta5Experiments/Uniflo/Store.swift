@@ -74,25 +74,6 @@ final class StateObject<State>: ObservableObject {
     }
   }
   
-  subscript<ActionParam>(dynamicMember keyPath: WritableKeyPath<Action, ActionParam?>) -> (ActionParam) -> Void
-    where Action: EmptyInitializable {
-      {
-        var action = Action()
-        action[keyPath: keyPath] = $0
-        self.dispatch(action)
-      }
-  }
-  subscript<P1,P2>(dynamicMember keyPath: WritableKeyPath<Action, (P1, P2)?>) -> (P1, P2) -> Void
-    where Action: EmptyInitializable {
-      {
-        var action = Action()
-        action[keyPath: keyPath] = ($0, $1)
-        self.dispatch(action)
-      }
-  }
-  
-  //...
-  
   private var strongReferences: [Any] = [] //used to retain Cancellables and Application, no need to track type of either
   
   //this generic version segfaults at callsite, we need to typeErase for now
@@ -111,6 +92,31 @@ final class StateObject<State>: ObservableObject {
     }, willChange: Empty(completeImmediately: true).eraseToAnyPublisher())
   }
 }
+
+extension Store where Action: EmptyInitializable {
+  subscript(dynamicMember keyPath: WritableKeyPath<Action, Void?>) -> () -> Void {
+    {
+      var action = Action()
+      action[keyPath: keyPath] = ()
+      self.dispatch(action)
+    }
+  }
+  subscript<ActionParam>(dynamicMember keyPath: WritableKeyPath<Action, ActionParam?>) -> (ActionParam) -> Void {
+      {
+        var action = Action()
+        action[keyPath: keyPath] = $0
+        self.dispatch(action)
+      }
+  }
+  subscript<P1,P2>(dynamicMember keyPath: WritableKeyPath<Action, (P1, P2)?>) -> (P1, P2) -> Void {
+      {
+        var action = Action()
+        action[keyPath: keyPath] = ($0, $1)
+        self.dispatch(action)
+      }
+  }
+}
+
 extension Store where State: Application, State.Action == Action {
   static func application(state : State, environment: State.Environment) -> Store {
     self.application(environment: environment, initialState: state, initialEffects: state.initialEffects, reduce: { $0.reduce($1) }, subscriptions: { $0.subscriptions() })

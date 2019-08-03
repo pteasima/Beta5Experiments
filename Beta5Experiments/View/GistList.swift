@@ -44,7 +44,7 @@ struct GistList: StoreView {
         .navigationBarTitle(Text("Gists"))
       }
     }
-    .onAppear { self.store.dispatch(.gistListAppear) }
+    .onAppear { self.gistListAppear() }
   }
 }
 

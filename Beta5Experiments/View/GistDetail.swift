@@ -12,20 +12,16 @@ import Combine
 struct GistDetail: StoreView {
     var store: Store<GistState, GistState.Action>
     var body: some View {
-      Text(verbatim: store.id.rawValue)
-//        switch self.files.map({ $0.content }) {
-//        default: break
-//        }
-//        return VStack {
-//            Text(verbatim: self.description)
-//                .lineLimit(nil)
-//            Button(action: { self.dispatch(.delete) }) {
-//                Text("delete")
-//            }
-//            Text(verbatim: self.filesDisplayString)
-//
-//            self.content.map(Text.init(verbatim:))
-//        }
+        VStack {
+            Text(verbatim: self.description)
+                .lineLimit(nil)
+          Button(action: { self.delete() }) {
+                Text("delete")
+            }
+            Text(verbatim: self.filesDisplayString)
+
+            self.content.map(Text.init(verbatim:))
+        }
     }
 }
 

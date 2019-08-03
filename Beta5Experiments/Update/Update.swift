@@ -127,6 +127,7 @@ extension AppState: Application {
       return []
     case let .gist(id: id, gistAction: gistAction):
       switch gistAction {
+      case .none: return []
       case .delete:
         selectedGistID = nil
         gists.modify(where: { $0.id == id }) {
@@ -141,12 +142,6 @@ extension AppState: Application {
           //                        .gist(id: id, msg: .didDelete)
           //                    }
         ]
-      case .disappear:
-        selectedGistID = nil
-        return []
-      case .didDelete:
-        gists.removeAll { $0.id == id }
-        return []
       }
       
     case let .fetchedFile(contents: result, fromURL: url):
@@ -173,13 +168,34 @@ extension AppState: Application {
 }
 
 extension GistState {
-  enum Action {
+  enum Action: EmptyInitializable {
+    init() { self = .none}
+    
+    case none
     case delete
-    case disappear
-    case didDelete
+    
+    var none: Void? {
+      get {
+        guard case .none = self else { return nil }
+        return ()
+      }
+      set {
+        guard let _ = newValue else { return }
+        self = .none
+      }
+    }
+    var delete: Void? {
+      get {
+        guard case .delete = self else { return nil }
+        return ()
+      }
+      set {
+        guard let _ = newValue else { return }
+        self = .delete
+      }
+    }
   }
 }
-
 
 extension Date {
   var noAction: AppState.Action { return .none }
