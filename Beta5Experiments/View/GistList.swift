@@ -17,20 +17,11 @@ struct GistList: StoreView {
             Group {
               gist.state.idle.map {
                 VStack {
-                  // I believe NavigatioLink is still bugged here. the last value read from the binding is false, yet screen stays pushed, after second pop its fixed.
+                  // I believe NavigatioLink is still bugged here. the last value read from the binding is false, yet screen gets pushed again once. After second pop its fixed.
                   // It also breaks if I use Binding to @State locally, so hopefully no bug in my Store
-                  //TODO: if we have multiple navigation links this is a problem. I dont know if theres any API on Binding to map the value
-                  NavigationLink(destination: EmptyView(), isActive: self.showsDetail {
-                    $0 ? .selectGist(id: gist.id) : .unselectGist
-                  }) {
-                    Text(verbatim: gist.description)
+                  NavigationLink(destination: Text("Detail"), tag: gist.id, selection: self.selectedGistID { $0.map(Action.selectGist) ?? .unselectGist }) {
+                    Text("push")
                   }
-                  // the toggle has the exact same api and works fine (stays in the right state
-//                  Toggle(isOn: self.showsDetail {
-//                    $0 ? .selectGist(id: gist.id) : .unselectGist
-//                  }) {
-//                    Text(verbatim: gist.description)
-//                  }
                   Text(verbatim: gist.filesDisplayString)
                     .foregroundColor(.gray)
                 }
