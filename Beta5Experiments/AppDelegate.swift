@@ -4,7 +4,7 @@ import UIKit
 
 private var appView: some View {
   var environment = Environment.live
-  return NavigationView {
+  return NavigationView {    
     GistList(store: .application(
       state: AppState(),
       environment: environment
@@ -13,7 +13,7 @@ private var appView: some View {
 }
 
 @UIApplicationMain
-final class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.

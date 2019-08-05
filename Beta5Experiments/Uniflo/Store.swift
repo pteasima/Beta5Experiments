@@ -53,26 +53,27 @@ final class StateObject<State>: ObservableObject {
   }
   subscript<Subject>(dynamicMember keyPath: KeyPath<State, Subject>) -> (@escaping (Subject) -> Action) -> Binding<Subject> {
   { transform in
-    Binding(get: {
-      self[dynamicMember: keyPath]
+    Binding(get: { () -> Subject in
+      let result: Subject = self[dynamicMember: keyPath]
+      print("result", result)
+      return result
     }, set: { newValue in
       self.dispatch(transform(newValue))
     })
     }
   }
-  subscript<Subject>(dynamicMember keyPath: KeyPath<State, Subject>) -> (@escaping (Subject) -> Action?) -> Binding<Subject> {
-  { transform in
-    Binding(get: {
-      let result: Subject = self[dynamicMember: keyPath]
-      print("got", "gott", result)
-      return result
-    }, set: { newValue in
-      if let transformed = transform(newValue) {
-        self.dispatch(transformed)
-      }
-    })
-    }
-  }
+//  subscript<Subject>(dynamicMember keyPath: KeyPath<State, Subject>) -> (@escaping (Subject) -> Action?) -> Binding<Subject> {
+//  { transform in
+//    Binding(get: {
+//      let result: Subject = self[dynamicMember: keyPath]
+//      return result
+//    }, set: { newValue in
+//      if let transformed = transform(newValue) {
+//        self.dispatch(transformed)
+//      }
+//    })
+//    }
+//  }
   
   private var strongReferences: [Any] = [] //used to retain Cancellables and Application, no need to track type of either
   
@@ -125,6 +126,7 @@ extension Store where State: Application, State.Action == Action {
 
 fileprivate final class ElmProgram<State, Action, Environment>: EffectManager {
   private(set) lazy var dispatch: (Action) -> Void = {
+    print($0)
     self._dispatch($0)
   }
   let willChange = PassthroughSubject<State, Never>()
@@ -187,6 +189,7 @@ fileprivate final class ElmProgram<State, Action, Environment>: EffectManager {
           
           while !self.queue.isEmpty {
             let currentMsg = self.queue.removeFirst()
+            print(currentMsg)
             let effs = update(&self.draftState, currentMsg)
             processEffects(effs)
           }

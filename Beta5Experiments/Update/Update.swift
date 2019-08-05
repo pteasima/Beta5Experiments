@@ -92,6 +92,7 @@ extension AppState: Application {
   }
   
   mutating func reduce(_ action: Action) -> [Effect<Action, Environment>] {
+    print("REDUCE", action)
     switch action {
     case .none:
       return []
@@ -130,14 +131,24 @@ extension AppState: Application {
       case .none: return []
       case .delete:
         selectedGistID = nil
-        gists.modify(where: { $0.id == id }) {
-          $0.status = .deleting
-        }
+//        gists = gists.filter { $0.id != id } //gists.forEach { print($0) }
+//        x.modify { _ in }
+//        gists = gists.map { $0 }
+        print(gists)
+        gists.removeAll { $0.id == id }
+        print(gists)
+//          x.map { $0 }
+//        print(gists)
+//        print(gists == )
+//        gists.modify(where: { $0.id == id }) { _ in
+////          $0.status =
+//        }
         return [
-          +{ $0.github.bar(stringParam: "bar").map { _ in .none } } >> effectToCancel,
-          +(\.github.login, "myusername", { _ in .none }) >> effectToCancel,
-          +{ $0.github.bar(stringParam: "bar").map { _ in .none } },
-          -(effectToCancel)
+          
+//          +{ $0.github.bar(stringParam: "bar").map { _ in .none } } >> effectToCancel,
+//          +(\.github.login, "myusername", { _ in .none }) >> effectToCancel,
+//          +{ $0.github.bar(stringParam: "bar").map { _ in .none } },
+//          -(effectToCancel)
           //                    Cmd(\.http.delete, HTTP.DeleteParams(url: URL(string: "https://api.github.com/gists/\(id.rawValue)")!, headers: ["Authorization" : "token d51bd98a7e8cd9838d13b2078a0f7851194ef96c"])) { (_: Data) in
           //                        .gist(id: id, msg: .didDelete)
           //                    }

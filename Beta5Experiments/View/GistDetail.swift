@@ -29,7 +29,7 @@ struct GistDetail: StoreView {
 struct GistDetail_Previews: PreviewProvider {
     static var previews: some View {
         GistDetail(store: .just(GistState(gist: Gist(
-            id: .init(rawValue: ""),
+            id: .init(rawValue: "42"),
             description: "description ok it works",
             files: [
                 File(filename: "test.swift", url: URL(string: "www.google.com")!),

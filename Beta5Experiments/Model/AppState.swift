@@ -11,7 +11,7 @@ struct AppState {
 extension AppState {
   var selectedGist: GistState? {
     get {
-      selectedGistID.flatMap { id in gists.first { $0.id == id } }
+      selectedGistID.flatMap { id in gists.first { $0.gist.id == id } }
     }
   }
   var showsDetail: Bool {

@@ -15,9 +15,9 @@ extension StoreView {
     subscript<Subject>(dynamicMember keyPath: KeyPath<State, Subject>) -> (@escaping (Subject) -> Action) -> Binding<Subject> {
         store[dynamicMember: keyPath]
     }
-    subscript<Subject>(dynamicMember keyPath: KeyPath<State, Subject>) -> (@escaping (Subject) -> Action?) -> Binding<Subject> {
-        store[dynamicMember: keyPath]
-    }
+//    subscript<Subject>(dynamicMember keyPath: KeyPath<State, Subject>) -> (@escaping (Subject) -> Action?) -> Binding<Subject> {
+//        store[dynamicMember: keyPath]
+//    }
   
 }
 
