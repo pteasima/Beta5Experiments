@@ -8,6 +8,7 @@ protocol EffectManager {
     func cancelEffect(id: Tagged<EffectManager, String>)
 }
 
+// TODO: I jumped through hoops to enable command cancellation but now Im thinking: If it needs to be tracked in state, shouldnt it just be a Subscription? These are not equivalent (for cancellable command you just store the ID, whereas to even create the subscription you need to store more data), but I think they can achieve same results. I think Elm was considering adding command cancellation but need to see how they ended up deciding. I would gladly take explaining to newbies why X needs to be a Subscription over introducing ambiguity.
 struct Effect<Action, Environment> {
     let id: EffectManager.EffectID
     let perform: (EffectManager, Environment) -> AnyPublisher<Action, Never>
