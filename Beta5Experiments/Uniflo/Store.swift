@@ -2,7 +2,7 @@ import SwiftUI
 import Combine
 import Tagged
 
-struct Unit: EmptyInitializable { }
+struct Unit: EmptyInitializable, Equatable, Hashable, Codable { }
 
 protocol Application {
   associatedtype Action = Never
@@ -55,7 +55,7 @@ final class StateObject<State>: ObservableObject {
   { transform in
     Binding(get: { () -> Subject in
       let result: Subject = self[dynamicMember: keyPath]
-      print("result", result)
+//      print("result", result)
       return result
     }, set: { newValue in
         self.dispatch(transform(newValue))

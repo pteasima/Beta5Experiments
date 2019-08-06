@@ -135,7 +135,7 @@ extension AppState: Application {
           $0.status = .deleting
         }
         return [
-          
+          +(\.github.deleteGist, id, { _ in .none })
 //          +{ $0.github.bar(stringParam: "bar").map { _ in .none } } >> effectToCancel,
 //          +(\.github.login, "myusername", { _ in .none }) >> effectToCancel,
 //          +{ $0.github.bar(stringParam: "bar").map { _ in .none } },
@@ -162,6 +162,7 @@ extension AppState: Application {
     ]
   }
   
+  //TODO: Im not sure I like initial effects. Elm has them, but I feel like initialAction may be better. Why introduce something that doesnt go through the reducer?
   var initialEffects: [Effect<AppState.Action, Environment>] {
     [
       +(\.github.getGists, { .fetchedGists($0) })
