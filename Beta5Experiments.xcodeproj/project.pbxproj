@@ -34,6 +34,8 @@
 		798C8DD822F49B3400387911 /* Gist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798C8DD722F49B3400387911 /* Gist.swift */; };
 		798C8DDA22F49B6200387911 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 798C8DD922F49B6200387911 /* File.swift */; };
 		799F1C5D22F5B79700FE3973 /* MockModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799F1C5C22F5B79700FE3973 /* MockModels.swift */; };
+		79A03FC422FA14AC00586DE1 /* UnimplementedEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A03FC322FA14AC00586DE1 /* UnimplementedEffect.swift */; };
+		79A03FC722FA21AB00586DE1 /* Absurd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79A03FC622FA21AB00586DE1 /* Absurd.swift */; };
 		79FB664A22F2F2DE00B43568 /* StoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664922F2F2DE00B43568 /* StoreView.swift */; };
 		79FB664C22F310A600B43568 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664B22F310A600B43568 /* Store.swift */; };
 		79FB664E22F3127E00B43568 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79FB664D22F3127E00B43568 /* Effect.swift */; };
@@ -89,6 +91,8 @@
 		798C8DD722F49B3400387911 /* Gist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Gist.swift; sourceTree = "<group>"; };
 		798C8DD922F49B6200387911 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		799F1C5C22F5B79700FE3973 /* MockModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockModels.swift; sourceTree = "<group>"; };
+		79A03FC322FA14AC00586DE1 /* UnimplementedEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnimplementedEffect.swift; sourceTree = "<group>"; };
+		79A03FC622FA21AB00586DE1 /* Absurd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Absurd.swift; sourceTree = "<group>"; };
 		79FB664922F2F2DE00B43568 /* StoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreView.swift; sourceTree = "<group>"; };
 		79FB664B22F310A600B43568 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		79FB664D22F3127E00B43568 /* Effect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
@@ -125,6 +129,7 @@
 		792D208522F358A90033C6BB /* Prelude */ = {
 			isa = PBXGroup;
 			children = (
+				79A03FC522FA219300586DE1 /* FP */,
 				792D208622F358C90033C6BB /* Collection+Modify.swift */,
 				792D208822F358C90033C6BB /* FoundationExtensions.swift */,
 				792D208B22F358C90033C6BB /* IdentifyableTagged.swift */,
@@ -132,6 +137,7 @@
 				792D208A22F358C90033C6BB /* Lookup.swift */,
 				792D208922F358C90033C6BB /* RemoteData.swift */,
 				792D208722F358C90033C6BB /* ScriptView.swift */,
+				79A03FC322FA14AC00586DE1 /* UnimplementedEffect.swift */,
 			);
 			path = Prelude;
 			sourceTree = "<group>";
@@ -267,6 +273,14 @@
 				799F1C5C22F5B79700FE3973 /* MockModels.swift */,
 			);
 			path = MockModels;
+			sourceTree = "<group>";
+		};
+		79A03FC522FA219300586DE1 /* FP */ = {
+			isa = PBXGroup;
+			children = (
+				79A03FC622FA21AB00586DE1 /* Absurd.swift */,
+			);
+			path = FP;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -435,8 +449,10 @@
 				792D209D22F35B370033C6BB /* Clock.swift in Sources */,
 				79FB665022F3138500B43568 /* SubscriptionEffect.swift in Sources */,
 				79FB664A22F2F2DE00B43568 /* StoreView.swift in Sources */,
+				79A03FC422FA14AC00586DE1 /* UnimplementedEffect.swift in Sources */,
 				792D208F22F358CA0033C6BB /* FoundationExtensions.swift in Sources */,
 				79505C8022F57F2C0087564A /* Store+Transformations.swift in Sources */,
+				79A03FC722FA21AB00586DE1 /* Absurd.swift in Sources */,
 				798C8DCF22F4975500387911 /* GistDetail.swift in Sources */,
 				792D20A122F35C420033C6BB /* AppState.swift in Sources */,
 				792D209B22F35A040033C6BB /* Environment.swift in Sources */,
