@@ -133,9 +133,9 @@ extension AppState: Application {
         selectedGistID = nil
 //        gists = gists.filter { $0.id != id } //gists.forEach { print($0) }
 //        x.modify { _ in }
-//        gists = gists.map { $0 }
+        gists = gists.map { $0 }
         print(gists)
-        gists.removeAll { $0.id == id }
+//        gists.removeAll { $0.id == id }
         print(gists)
 //          x.map { $0 }
 //        print(gists)

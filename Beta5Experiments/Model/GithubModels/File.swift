@@ -1,6 +1,6 @@
 import Foundation
 
-struct File: Codable {
+struct File: Codable, Hashable {
     var filename: String
     var url: URL
     

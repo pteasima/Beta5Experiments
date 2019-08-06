@@ -6,6 +6,7 @@ struct GistList: StoreView {
 //  @State var selectedFirstID: Gist.ID?
   
   var body: some View {
+    
     Group {
       if self.error != nil {
         Text(verbatim: self.error!)
@@ -13,7 +14,7 @@ struct GistList: StoreView {
       }
       else {
         List {
-          ForEach(self.gists.prefix(1), id: \.id) { gist in
+          ForEach(self.gists, id: \.id) { gist in
             Group {
               gist.status.idle.map {
                 VStack {
@@ -52,7 +53,7 @@ struct GistList: StoreView {
               self.gists[safe: $0]?.id
             }
               .forEach { self.gist($0, .delete) } //we shouldnt dispatch multiple times but afaik there will always be just one deletedIndex
-            
+
           }
         }
         .navigationBarTitle(Text("Gists"))

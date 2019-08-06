@@ -58,7 +58,7 @@ final class StateObject<State>: ObservableObject {
       print("result", result)
       return result
     }, set: { newValue in
-      self.dispatch(transform(newValue))
+        self.dispatch(transform(newValue))
     })
     }
   }
