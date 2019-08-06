@@ -54,6 +54,13 @@ prefix func +<Action, Environment, Input, Output, P: Publisher>(params: (KeyPath
         environment[keyPath: params.0](params.1).map(params.2)
     }
 }
+// variant of "keyPath-input-transform" with no input
+prefix func +<Action, Environment, Output, P: Publisher>(params: (KeyPath<Environment, () -> P>, (Output) -> Action)) -> Effect<Action, Environment> where P.Output == Output, P.Failure == Never {
+    Effect { environment in
+        environment[keyPath: params.0]().map(params.1)
+    }
+}
+
 // we briefly had a "keyPathToService + serviceMethod + input + transform" syntax
 // it was getting crazy with 6 generic params
 // wasnt much safer than raw anyway (could still supply arbitrary closure in place of "serviceMethod")

@@ -5,7 +5,7 @@ private let token = "3afeb0a0592b48eec18873b6bd3413352302cb9c"
 
 struct Github {
     var login: (String) -> AnyPublisher<Data, Never> = unimplemented
-    var getGists: (String) -> AnyPublisher<Result<[Gist], Error>, Never> = { _ in
+    var getGists: () -> AnyPublisher<Result<[Gist], Error>, Never> = {
             Just(.success([
                 Gist(
                     id: .init(rawValue: "1"),
@@ -27,7 +27,7 @@ struct Github {
 }
 extension Github {
     static let live: Github = .init(
-      getGists: { _ in
+      getGists: {
         request(endpoint: .gists)
     })
 }

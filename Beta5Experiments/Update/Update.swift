@@ -164,7 +164,7 @@ extension AppState: Application {
   
   var initialEffects: [Effect<AppState.Action, Environment>] {
     [
-      +(\.github.getGists, "dummyParam", { .fetchedGists($0) })
+      +(\.github.getGists, { .fetchedGists($0) })
     ]
   }
 }
