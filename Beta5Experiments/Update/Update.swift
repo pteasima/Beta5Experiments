@@ -131,18 +131,9 @@ extension AppState: Application {
       case .none: return []
       case .delete:
         selectedGistID = nil
-//        gists = gists.filter { $0.id != id } //gists.forEach { print($0) }
-//        x.modify { _ in }
-        gists = gists.map { $0 }
-        print(gists)
-//        gists.removeAll { $0.id == id }
-        print(gists)
-//          x.map { $0 }
-//        print(gists)
-//        print(gists == )
-//        gists.modify(where: { $0.id == id }) { _ in
-////          $0.status =
-//        }
+        gists.modify(where: { $0.id == id }) {
+          $0.status = .deleting
+        }
         return [
           
 //          +{ $0.github.bar(stringParam: "bar").map { _ in .none } } >> effectToCancel,

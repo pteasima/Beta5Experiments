@@ -16,36 +16,36 @@ struct GistList: StoreView {
         List {
           ForEach(self.gists, id: \.id) { gist in
             Group {
-              gist.status.idle.map {
-                VStack {
-                  // !!! NAVIGATION IS STILL SERIOUSLY BROKEN
-                  // I believe NavigatioLink is still bugged here. the last value read from the binding is false, yet screen gets pushed again once. After second pop its fixed.
-                  // It also breaks if I use Binding to @State locally, so hopefully no bug in my Store
-                  NavigationLink(destination: GistDetail(
-                    store: self.store
-                      .filterMap(initialState: gist, transform: { $0.gists.first { $0.id == gist.id } })
-                      .pullback { .gist(id: gist.id, gistAction: $0) }
-                    ), tag: gist.id, selection: self.selectedGistID { (id: Gist.ID?) -> Action in
-                    print(id)
-                    return id.map(Action.selectGist) ?? .unselectGist
-                     }
-                    //use this to debug on a local property
-//                    Binding(get: {
-//                      let result = self.selectedFirstID
-//                      print("get", result)
-//                      return result
-////                      .init(rawValue: 1)
-//                     }, set: {
-//                      print("set", $0)
-//                      self.selectedFirstID = $0
-                  ) {
-                    Text("push")
+              // !!! NAVIGATION IS STILL SERIOUSLY BROKEN
+              // I believe NavigatioLink is still bugged here. the last value read from the binding is false, yet screen gets pushed again once. After second pop its fixed.
+              // It also breaks if I use Binding to @State locally, so hopefully no bug in my Store
+              NavigationLink(destination: GistDetail(
+                store: self.store
+                  .filterMap(initialState: gist, transform: { $0.gists.first { $0.id == gist.id } })
+                  .pullback { .gist(id: gist.id, gistAction: $0) }
+                ), tag: gist.id, selection: self.selectedGistID { (id: Gist.ID?) -> Action in
+                  print(id)
+                  return id.map(Action.selectGist) ?? .unselectGist
+                }
+                //use this to debug on a local property
+                //                    Binding(get: {
+                //                      let result = self.selectedFirstID
+                //                      print("get", result)
+                //                      return result
+                ////                      .init(rawValue: 1)
+                //                     }, set: {
+                //                      print("set", $0)
+                //                      self.selectedFirstID = $0
+              ) {
+                VStack(alignment: .leading) {
+                  Text(gist.description)
+                  gist.status.idle.map {
+                    Text(verbatim: gist.filesDisplayString)
+                      .foregroundColor(.gray)
                   }
-                  Text(verbatim: gist.filesDisplayString)
-                    .foregroundColor(.gray)
+                  gist.status.deleting.map { Text("deleting...") }
                 }
               }
-              gist.status.deleting.map { Text("Deleting") }
             }
           }
           .onDelete { deletedIndices in
